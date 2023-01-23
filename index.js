@@ -30,9 +30,11 @@ inquirer
 		},
 	])
 	.then((answer) => {
+		const { name, location, bio, linkedin, github } = answer;
+		const portName = name.toLowerCase().replace(/\s/g, "");
 		fs.appendFile(
-			`${answer.name}-portfolio.html`,
-			createHTML(answer.name, answer.location, answer.bio, answer.linkedin, answer.github),
+			`${portName}-portfolio.html`,
+			createHTML(name, location, bio, linkedin, github),
 			(err) => (err ? console.error(err) : console.log("Portfolio created."))
 		);
 	});
