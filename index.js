@@ -32,7 +32,7 @@ inquirer
 	.then((answer) => {
 		const { name, location, bio, linkedin, github } = answer;
 		const portName = name.toLowerCase().replace(/\s/g, "");
-		fs.appendFile(
+		fs.writeFile(
 			`${portName}-portfolio.html`,
 			createHTML(name, location, bio, linkedin, github),
 			(err) => (err ? console.error(err) : console.log("Portfolio created."))
@@ -46,16 +46,31 @@ function createHTML(name, loc, bio, li, gh) {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>${name}</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.5/dist/css/foundation.min.css" crossorigin="anonymous">
+        <style>
+            * {
+                margin: 0 auto;
+                text-align: center;
+            }
+        </style>
     </head>
     <body>
-        <h1>${name}</h1>
-        <h2>About</h2>
-        <p>${name} currently resides in ${loc}.</p>
-        <p>${bio}</p>
-        <h2>Contact</h2>
-        <a href="${li}">Linked In</a>
-        <a href="${gh}">Git Hub</a>
+        <nav>
+            <h1 class="align-self-center">${name}</h1>
+            <ul class="menu align-center">
+                <li><a href="#about">About</a></li>
+                <li><a href="${li}" target="_blank">Linked In</a></li>
+                <li><a href="${gh}" target="_blank">Git Hub</a></li>
+            </ul>
+        </nav>
+        <main class="align-self-center align-center">
+            <h2 id="about">About</h2>
+            <p>${name.split(" ")[0]} currently resides in ${loc}.</p>
+            <p>${bio}</p>
+        </main>
+
+        <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.5/dist/js/foundation.min.js" crossorigin="anonymous"></scrip>
     </body>
     </html>`;
 }
